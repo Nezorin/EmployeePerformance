@@ -1,0 +1,73 @@
+﻿@model EmployeePerfomance.Web.Models.EditUserViewModel
+
+@{
+    ViewData["Title"] = "EditUser";
+}
+
+<h1>Edit User</h1>
+
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="EditUser">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="Login" class="control-label"></label>
+                <input asp-for="Login" class="form-control" />
+                <span asp-validation-for="Login" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Password" class="control-label"></label>
+                <input asp-for="Password" class="form-control" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label"></label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label"></label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="RoleId" class="control-label">Role</label>
+                <select asp-for="RoleId">
+                    @foreach (var item in Model.Roles)
+                    {
+                        <option value="@item.Id">@item.RoleName</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="DepartmentId" class="control-label">Department</label>
+                <select asp-for="DepartmentId">
+                    @foreach (var item in Model.Departments)
+                    {
+                        <option value="@item.Id">@item.DepartmentName</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <label asp-for="StatusId" class="control-label">Status</label>
+                <select asp-for="StatusId">
+                    @foreach (var item in Model.Statuses)
+                    {
+                        <option value="@item.Id">@item.StatusName</option>
+                    }
+                </select>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Users">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
