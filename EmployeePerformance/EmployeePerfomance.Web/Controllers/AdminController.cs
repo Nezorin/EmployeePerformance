@@ -4,6 +4,7 @@ using EmployeePerfomance.DataAccessLayer.Entities;
 using EmployeePerfomance.Web.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
 using System.Threading.Tasks;
@@ -55,20 +56,37 @@ namespace EmployeePerfomance.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> EditUser(EditUserViewModel model)
         {
-            var editedUser = _mapper.Map<User>(model);
-            await _userService.UpdateAsync(editedUser);
-            return RedirectToAction("Users");
+            var userToEdit = await _userService.GetAll().FirstOrDefaultAsync(u => u.Id == model.Id);
+            //Check if login wasn't changed or was changed on one that already exist
+            if (userToEdit.Login == model.Login ||
+                    _userService.GetAll().FirstOrDefault(t => t.Login == model.Login) == null)
+            {
+                var editedUser = _mapper.Map(model, userToEdit);
+                await _userService.UpdateAsync(editedUser);
+                return RedirectToAction("Users");
+            }
+            else
+            {
+                ModelState.AddModelError("Login", "User with such login is already exist");
+                var editModel = CreateEditViewModel(userToEdit);
+                return View(editModel);
+            }
         }
         [HttpGet]
         public IActionResult EditUser(Guid id)
         {
             var user = _userService.GetAll().FirstOrDefault(u => u.Id == id);
+            var model = CreateEditViewModel(user);
+            return View(model);
+        }
+        [HttpPost]
+        public EditUserViewModel CreateEditViewModel(User user)
+        {
             var model = _mapper.Map<EditUserViewModel>(user);
             model.Roles = _roleService.GetAll().ToList();
             model.Departments = _departmentService.GetAll().ToList();
             model.Statuses = _statusService.GetAll().ToList();
-
-            return View(model);
+            return model;
         }
         public async Task<IActionResult> DeleteUser(Guid id)
         {

@@ -10,9 +10,9 @@ namespace EmployeePerfomance.Web.Models
 {
     public class EditUserViewModel
     {
+        public Guid Id { get; set; }
         [Required]
         [MaxLength(50)]
-        [Remote(action: "CheckLogin", controller: "Admin", ErrorMessage = "User with such login is already exist")]
         public string Login { get; set; }
         [Required]
         [MaxLength(50)]
