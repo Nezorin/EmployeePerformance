@@ -32,6 +32,8 @@ namespace EmployeePerfomance.Web
             services.AddTransient<IRoleService, RoleService>();
             services.AddTransient<IStatusService, StatusService>();
             services.AddTransient<IDepartmentService, DepartmentService>();
+            services.AddTransient<IEvaluationService, EvaluationService>();
+            services.AddTransient<IParameterService, ParameterService>();
 
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
                 .AddCookie(options =>

@@ -8,10 +8,12 @@ namespace EmployeePerfomance.Web
     {
         public AutoMapperProfile()
         {
-            CreateMap<RegisterUserViewModel, User>(); 
-            CreateMap<AddDepartmentViewModel, Department>(); 
+            CreateMap<RegisterUserViewModel, User>();
+            CreateMap<AddDepartmentViewModel, Department>();
             CreateMap<EditUserViewModel, User>();
             CreateMap<User, EditUserViewModel>();
+            CreateMap<Parameter, ParameterViewModel>();
+            CreateMap<ParameterViewModel, Parameter>();
         }
     }
 }

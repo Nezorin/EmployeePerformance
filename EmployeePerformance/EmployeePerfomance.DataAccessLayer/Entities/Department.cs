@@ -9,5 +9,6 @@ namespace EmployeePerfomance.DataAccessLayer.Entities
         [Required]
         public string DepartmentName { get; set; }
         public ICollection<User> Users { get; set; }
+        public ICollection<Parameter> Parameters { get; set; }
     }
 }

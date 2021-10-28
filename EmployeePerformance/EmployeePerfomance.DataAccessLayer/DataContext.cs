@@ -10,6 +10,8 @@ namespace EmployeePerfomance.DataAccessLayer
         public DbSet<User> Users { get; set; }
         public DbSet<Department> Departments { get; set; }
         public DbSet<Status> Statuses { get; set; }
+        public DbSet<Evaluation> Evaluations { get; set; }
+        public DbSet<Parameter> Parameters { get; set; }
         public DataContext(DbContextOptions options) : base(options) { }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
